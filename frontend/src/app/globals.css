@@ -1,3 +1,176 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-meridian-surface font-sans text-meridian-text;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  ::selection {
+    @apply bg-meridian-crimson/20 text-meridian-navy;
+  }
+}
+
+@layer components {
+  /* Light card surface for main content areas */
+  .meridian-card {
+    @apply bg-white border border-meridian-border rounded-xl shadow-meridian-card;
+  }
+
+  /* Elevated card with deeper shadow */
+  .meridian-card-elevated {
+    @apply bg-white border border-meridian-border rounded-xl shadow-meridian-lg;
+  }
+
+  /* Card hover effect */
+  .meridian-card-hover {
+    @apply bg-white border border-meridian-border rounded-xl shadow-meridian-card
+           hover:shadow-meridian-card-hover hover:border-meridian-border-dark
+           transition-all duration-200;
+  }
+
+  /* Primary CTA button - crimson */
+  .meridian-btn-primary {
+    @apply inline-flex items-center justify-center px-6 py-3 rounded-lg
+           bg-meridian-crimson font-semibold text-white
+           hover:bg-meridian-crimson-600 active:bg-meridian-crimson-700
+           transition-all duration-200 ease-out
+           shadow-meridian-crimson hover:shadow-lg;
+  }
+
+  /* Secondary/outline button for light backgrounds */
+  .meridian-btn-secondary {
+    @apply inline-flex items-center justify-center px-6 py-3 rounded-lg
+           border border-meridian-border-dark font-medium text-meridian-navy
+           hover:bg-meridian-surface-200 hover:border-meridian-navy/20
+           transition-all duration-200 ease-out;
+  }
+
+  /* Ghost button for light backgrounds */
+  .meridian-btn-ghost {
+    @apply inline-flex items-center justify-center px-6 py-3 rounded-lg
+           font-medium text-meridian-text-muted
+           hover:bg-meridian-surface-200 hover:text-meridian-navy
+           transition-all duration-200 ease-out;
+  }
+
+  /* Sidebar nav link (dark background) */
+  .meridian-nav-link {
+    @apply flex items-center gap-3 px-3 py-2.5 rounded-lg
+           text-meridian-slate-300 text-sm font-medium
+           hover:bg-white/5 hover:text-white
+           transition-all duration-150 ease-out;
+  }
+
+  .meridian-nav-link-active {
+    @apply bg-white/10 text-white;
+  }
+
+  /* Stat card accent bar */
+  .meridian-stat-accent {
+    @apply absolute top-0 left-0 w-1 h-full rounded-l-xl;
+  }
+
+  /* Subtle divider for light backgrounds */
+  .meridian-divider {
+    @apply border-t border-meridian-border;
+  }
+
+  /* Divider for dark backgrounds */
+  .meridian-divider-dark {
+    @apply border-t border-white/5;
+  }
+
+  /* Section heading for light backgrounds */
+  .meridian-heading {
+    @apply text-meridian-text-heading font-bold;
+  }
+
+  /* Body text for light backgrounds */
+  .meridian-body {
+    @apply text-meridian-text-body;
+  }
+
+  /* Muted text for light backgrounds */
+  .meridian-muted {
+    @apply text-meridian-text-muted;
+  }
+
+  /* Input styling for light backgrounds */
+  .meridian-input {
+    @apply w-full rounded-lg border border-meridian-border bg-white
+           px-3.5 py-2.5 text-sm text-meridian-navy
+           placeholder-meridian-text-light
+           focus:outline-none focus:ring-2 focus:ring-meridian-crimson/20 focus:border-meridian-crimson
+           transition-colors;
+  }
+
+  /* Label styling for light backgrounds */
+  .meridian-label {
+    @apply block text-sm font-medium text-meridian-navy mb-1.5;
+  }
+}
+
+@layer utilities {
+  /* Gradient text utility */
+  .text-gradient-meridian {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-white via-meridian-slate-100 to-meridian-slate-300;
+  }
+
+  /* Gradient text for light backgrounds */
+  .text-gradient-meridian-light {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-meridian-navy via-meridian-steel to-meridian-navy;
+  }
+
+  /* Fade-in animation */
+  .animate-fade-in {
+    animation: fadeIn 0.6s ease-out forwards;
+  }
+
+  .animate-fade-in-up {
+    animation: fadeInUp 0.6s ease-out forwards;
+  }
+
+  .animate-fade-in-delayed {
+    animation: fadeIn 0.6s ease-out 0.2s forwards;
+    opacity: 0;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(16px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Wave decoration for section dividers */
+  .wave-decoration {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .wave-decoration::before {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: -10%;
+    width: 120%;
+    height: 60px;
+    background: #F8FAFC;
+    border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+  }
+}
