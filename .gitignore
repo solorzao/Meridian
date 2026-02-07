@@ -1,0 +1,49 @@
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Environment
+.env
+.env.*
+!.env.example
+
+# Frontend
+frontend/node_modules/
+frontend/.next/
+frontend/out/
+frontend/.turbo/
+
+# Backend (.NET)
+backend/**/bin/
+backend/**/obj/
+backend/**/*.user
+backend/**/*.suo
+backend/.vs/
+
+# Python
+python-service/__pycache__/
+python-service/*.pyc
+python-service/.venv/
+python-service/venv/
+python-service/.pytest_cache/
+python-service/.ruff_cache/
+
+# Infrastructure
+infrastructure/.terraform/
+infrastructure/*.tfstate*
+infrastructure/.bicep/
+
+# Logs
+*.log
+logs/
+
+# Test coverage
+coverage/
+*.coverage
+htmlcov/
