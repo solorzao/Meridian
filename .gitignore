@@ -47,3 +47,6 @@ logs/
 coverage/
 *.coverage
 htmlcov/
+
+# Screenshots
+*.png
