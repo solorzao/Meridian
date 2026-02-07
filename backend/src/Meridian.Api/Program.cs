@@ -1,3 +1,4 @@
+using Meridian.Agents;
 using Meridian.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,6 +10,9 @@ builder.Services.AddSwaggerGen();
 
 // Add infrastructure (EF, repos, Cosmos, HTTP clients)
 builder.Services.AddInfrastructure(builder.Configuration);
+
+// Add Semantic Kernel agents
+builder.Services.AddAgents(builder.Configuration);
 
 // CORS
 builder.Services.AddCors(options =>
