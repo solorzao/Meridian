@@ -1,5 +1,6 @@
 using Meridian.Agents;
 using Meridian.Infrastructure;
+using Meridian.Jobs.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +14,9 @@ builder.Services.AddInfrastructure(builder.Configuration);
 
 // Add Semantic Kernel agents
 builder.Services.AddAgents(builder.Configuration);
+
+// Add Hangfire background jobs
+builder.Services.AddHangfireJobs(builder.Configuration);
 
 // CORS
 builder.Services.AddCors(options =>

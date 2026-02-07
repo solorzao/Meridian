@@ -15,6 +15,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Meridian.Core\Meridian.Core.csproj" />
     <ProjectReference Include="..\Meridian.Agents\Meridian.Agents.csproj" />
+    <ProjectReference Include="..\Meridian.Infrastructure\Meridian.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>
