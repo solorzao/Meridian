@@ -27,8 +27,8 @@ backend/**/*.suo
 backend/.vs/
 
 # Python
-python-service/__pycache__/
-python-service/*.pyc
+__pycache__/
+*.pyc
 python-service/.venv/
 python-service/venv/
 python-service/.pytest_cache/
