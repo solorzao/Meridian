@@ -1,0 +1,62 @@
+name: Python Service CI/CD
+
+on:
+  push:
+    branches: [main]
+    paths: ['python-service/**']
+  pull_request:
+    branches: [main]
+    paths: ['python-service/**']
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: python-service
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v4
+
+      - run: uv venv
+      - run: uv pip install -e ".[dev]"
+      - run: uv run ruff check app/
+      - run: uv run pytest tests/ -v --tb=short
+
+  deploy:
+    needs: build-and-test
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    environment: production
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: azure/login@v2
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - uses: azure/docker-login@v2
+        with:
+          login-server: ${{ secrets.ACR_LOGIN_SERVER }}
+          username: ${{ secrets.ACR_USERNAME }}
+          password: ${{ secrets.ACR_PASSWORD }}
+
+      - name: Build and push Docker image
+        run: |
+          docker build -t ${{ secrets.ACR_LOGIN_SERVER }}/meridian-python:${{ github.sha }} python-service/
+          docker push ${{ secrets.ACR_LOGIN_SERVER }}/meridian-python:${{ github.sha }}
+
+      - name: Deploy to Container App
+        uses: azure/container-apps-deploy-action@v2
+        with:
+          containerAppName: meridian-python
+          resourceGroup: ${{ secrets.AZURE_RESOURCE_GROUP }}
+          imageToDeploy: ${{ secrets.ACR_LOGIN_SERVER }}/meridian-python:${{ github.sha }}

@@ -1,0 +1,45 @@
+version: '3.8'
+
+services:
+  frontend:
+    build: ./frontend
+    ports:
+      - "3000:3000"
+    environment:
+      - NEXT_PUBLIC_API_URL=http://localhost:5000
+    depends_on:
+      - api
+
+  api:
+    build:
+      context: ./backend
+      dockerfile: src/Meridian.Api/Dockerfile
+    ports:
+      - "5000:8080"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__SqlConnection=Server=sqlserver;Database=Meridian;User Id=sa;Password=MeridianDev123!;TrustServerCertificate=True;
+      - Services__PythonAnalytics=http://python-service:8000
+    depends_on:
+      - sqlserver
+      - python-service
+
+  python-service:
+    build: ./python-service
+    ports:
+      - "8000:8000"
+    environment:
+      - DEBUG=true
+
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    ports:
+      - "1433:1433"
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=MeridianDev123!
+    volumes:
+      - sqldata:/var/opt/mssql
+
+volumes:
+  sqldata:

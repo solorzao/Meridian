@@ -1,0 +1,44 @@
+name: Infrastructure
+
+on:
+  push:
+    branches: [main]
+    paths: ['infrastructure/**']
+  pull_request:
+    branches: [main]
+    paths: ['infrastructure/**']
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: azure/login@v2
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Validate Bicep
+        run: az bicep build --file infrastructure/main.bicep
+
+  deploy:
+    needs: validate
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    environment: production
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: azure/login@v2
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Deploy Infrastructure
+        run: |
+          az deployment sub create \
+            --location eastus2 \
+            --template-file infrastructure/main.bicep \
+            --parameters infrastructure/parameters/prod.bicepparam \
+            --parameters sqlAdminPassword=${{ secrets.SQL_ADMIN_PASSWORD }}
