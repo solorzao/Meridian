@@ -1,4 +1,5 @@
 using Meridian.Agents;
+using Meridian.Api.Middleware;
 using Meridian.Infrastructure;
 using Meridian.Jobs.Configuration;
 
@@ -17,6 +18,9 @@ builder.Services.AddAgents(builder.Configuration);
 
 // Add Hangfire background jobs
 builder.Services.AddHangfireJobs(builder.Configuration);
+
+// Add rate limiting
+builder.Services.AddRateLimiting();
 
 // CORS
 builder.Services.AddCors(options =>
@@ -39,6 +43,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseCors();
+app.UseErrorHandling();
+app.UseRateLimiter();
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
