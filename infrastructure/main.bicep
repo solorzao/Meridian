@@ -7,9 +7,9 @@ param environment string
 @description('Azure region')
 param location string = 'eastus2'
 
-@description('SQL admin password')
+@description('PostgreSQL admin password')
 @secure()
-param sqlAdminPassword string
+param postgresAdminPassword string
 
 var resourceGroupName = 'meridian-${environment}'
 var tags = {
@@ -33,24 +33,13 @@ module keyVault 'modules/keyvault.bicep' = {
   }
 }
 
-module sql 'modules/sql.bicep' = {
-  name: 'sql'
+module postgres 'modules/postgres.bicep' = {
+  name: 'postgres'
   scope: rg
   params: {
     location: location
     environment: environment
-    adminPassword: sqlAdminPassword
-    keyVaultName: keyVault.outputs.keyVaultName
-    tags: tags
-  }
-}
-
-module cosmos 'modules/cosmos.bicep' = {
-  name: 'cosmos'
-  scope: rg
-  params: {
-    location: location
-    environment: environment
+    adminPassword: postgresAdminPassword
     keyVaultName: keyVault.outputs.keyVaultName
     tags: tags
   }

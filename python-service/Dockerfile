@@ -11,8 +11,10 @@ COPY pyproject.toml .
 # Install dependencies
 RUN uv pip install --system -e .
 
-# Copy application code
+# Copy application code and alembic config
 COPY app/ app/
+COPY alembic/ alembic/
+COPY alembic.ini .
 
 # Expose port
 EXPOSE 8000
@@ -21,5 +23,5 @@ EXPOSE 8000
 HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
     CMD python -c "import httpx; httpx.get('http://localhost:8000/health')" || exit 1
 
-# Run with uvicorn
-CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
+# Run migrations then start server
+CMD ["sh", "-c", "alembic upgrade head && uvicorn app.main:app --host 0.0.0.0 --port 8000"]

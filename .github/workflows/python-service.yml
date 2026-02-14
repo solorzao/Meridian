@@ -15,6 +15,24 @@ jobs:
       run:
         working-directory: python-service
 
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: meridian
+          POSTGRES_PASSWORD: meridian
+          POSTGRES_DB: meridian
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U meridian"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    env:
+      DATABASE_URL: postgresql+asyncpg://meridian:meridian@localhost:5432/meridian
+
     steps:
       - uses: actions/checkout@v6
 
@@ -28,6 +46,7 @@ jobs:
       - run: uv venv
       - run: uv pip install -e ".[dev]"
       - run: uv run ruff check app/
+      - run: uv run alembic upgrade head
       - run: uv run pytest tests/ -v --tb=short
 
   deploy:
@@ -35,6 +54,9 @@ jobs:
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     environment: production
+
+    env:
+      GIT_SHA: ${{ github.sha }}
 
     steps:
       - uses: actions/checkout@v6
@@ -50,9 +72,11 @@ jobs:
           password: ${{ secrets.ACR_PASSWORD }}
 
       - name: Build and push Docker image
+        env:
+          ACR_SERVER: ${{ secrets.ACR_LOGIN_SERVER }}
         run: |
-          docker build -t ${{ secrets.ACR_LOGIN_SERVER }}/meridian-python:${{ github.sha }} python-service/
-          docker push ${{ secrets.ACR_LOGIN_SERVER }}/meridian-python:${{ github.sha }}
+          docker build -t "$ACR_SERVER/meridian-python:$GIT_SHA" python-service/
+          docker push "$ACR_SERVER/meridian-python:$GIT_SHA"
 
       - name: Deploy to Container App
         uses: azure/container-apps-deploy-action@v2
