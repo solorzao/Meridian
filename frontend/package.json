@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@azure/msal-browser": "^5.1.0",
-    "@azure/msal-react": "^2.0.0",
+    "@azure/msal-react": "^5.0.4",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",
     "lucide-react": "^0.563.0",
