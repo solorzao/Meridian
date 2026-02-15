@@ -1,7 +1,7 @@
 from fastapi import APIRouter, HTTPException
 
-from app.services import indicator_service
 from app.models.indicator_schemas import IndicatorRequest, IndicatorResponse
+from app.services import indicator_service
 
 router = APIRouter(prefix="/indicators", tags=["Indicators"])
 

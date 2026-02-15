@@ -1,3 +1,5 @@
+import logging
+
 import yfinance as yf
 
 from app.models.screener_schemas import (
@@ -7,21 +9,76 @@ from app.models.screener_schemas import (
 )
 from app.services.indicators import indicator_service
 
+logger = logging.getLogger(__name__)
+
 
 class ScreenerService:
     """Service for screening stocks against criteria."""
 
     SP500_SAMPLE = [
-        "AAPL", "MSFT", "GOOGL", "AMZN", "NVDA", "META", "TSLA", "BRK-B",
-        "UNH", "JNJ", "JPM", "V", "PG", "XOM", "HD", "CVX", "MA", "ABBV",
-        "MRK", "PFE", "KO", "PEP", "COST", "TMO", "AVGO", "MCD", "WMT",
-        "CSCO", "ACN", "ABT", "DHR", "LLY", "NEE", "VZ", "ADBE", "CRM",
+        "AAPL",
+        "MSFT",
+        "GOOGL",
+        "AMZN",
+        "NVDA",
+        "META",
+        "TSLA",
+        "BRK-B",
+        "UNH",
+        "JNJ",
+        "JPM",
+        "V",
+        "PG",
+        "XOM",
+        "HD",
+        "CVX",
+        "MA",
+        "ABBV",
+        "MRK",
+        "PFE",
+        "KO",
+        "PEP",
+        "COST",
+        "TMO",
+        "AVGO",
+        "MCD",
+        "WMT",
+        "CSCO",
+        "ACN",
+        "ABT",
+        "DHR",
+        "LLY",
+        "NEE",
+        "VZ",
+        "ADBE",
+        "CRM",
     ]
 
     NASDAQ100_SAMPLE = [
-        "AAPL", "MSFT", "GOOGL", "AMZN", "NVDA", "META", "TSLA", "AVGO",
-        "ADBE", "COST", "CSCO", "PEP", "AMD", "NFLX", "INTC", "CMCSA",
-        "INTU", "QCOM", "TXN", "AMGN", "AMAT", "BKNG", "ISRG", "MDLZ",
+        "AAPL",
+        "MSFT",
+        "GOOGL",
+        "AMZN",
+        "NVDA",
+        "META",
+        "TSLA",
+        "AVGO",
+        "ADBE",
+        "COST",
+        "CSCO",
+        "PEP",
+        "AMD",
+        "NFLX",
+        "INTC",
+        "CMCSA",
+        "INTU",
+        "QCOM",
+        "TXN",
+        "AMGN",
+        "AMAT",
+        "BKNG",
+        "ISRG",
+        "MDLZ",
     ]
 
     def screen(
@@ -44,7 +101,8 @@ class ScreenerService:
                 match = self._evaluate_ticker(ticker, criteria)
                 if match:
                     matches.append(match)
-            except Exception:
+            except Exception as e:
+                logger.warning("Failed to evaluate ticker %s: %s", ticker, e)
                 continue
 
             if len(matches) >= limit:
@@ -58,9 +116,7 @@ class ScreenerService:
             criteria_summary=self._summarize_criteria(criteria),
         )
 
-    def _evaluate_ticker(
-        self, ticker: str, criteria: ScreenerCriteria
-    ) -> ScreenerMatch | None:
+    def _evaluate_ticker(self, ticker: str, criteria: ScreenerCriteria) -> ScreenerMatch | None:
         stock = yf.Ticker(ticker)
         info = stock.fast_info
         hist = stock.history(period="5d")

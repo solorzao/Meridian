@@ -1,5 +1,6 @@
-import yfinance as yf
 from datetime import datetime
+
+import yfinance as yf
 
 from app.models.schemas import OHLCVBar, OHLCVResponse, QuoteResponse
 

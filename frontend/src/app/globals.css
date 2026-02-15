@@ -1,8 +1,107 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+@theme {
+  /* Font family */
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+
+  /* Meridian Navy backgrounds */
+  --color-meridian-navy: #1B2A4A;
+  --color-meridian-navy-50: #2A3F6B;
+  --color-meridian-navy-100: #253861;
+  --color-meridian-navy-200: #223354;
+  --color-meridian-navy-300: #1F2E4E;
+  --color-meridian-navy-400: #1B2A4A;
+  --color-meridian-navy-500: #172442;
+  --color-meridian-navy-600: #141F3A;
+  --color-meridian-navy-700: #111A32;
+  --color-meridian-navy-800: #0E152A;
+  --color-meridian-navy-900: #0B1022;
+  --color-meridian-navy-950: #080C1A;
+
+  /* Light surface colors */
+  --color-meridian-surface: #F8FAFC;
+  --color-meridian-surface-50: #FFFFFF;
+  --color-meridian-surface-100: #F8FAFC;
+  --color-meridian-surface-200: #F1F5F9;
+  --color-meridian-surface-300: #E2E8F0;
+  --color-meridian-surface-400: #CBD5E1;
+
+  /* Text colors */
+  --color-meridian-text: #1B2A4A;
+  --color-meridian-text-heading: #0F172A;
+  --color-meridian-text-body: #475569;
+  --color-meridian-text-muted: #64748B;
+  --color-meridian-text-light: #94A3B8;
+
+  /* Slate/muted text tones */
+  --color-meridian-slate: #94A3B8;
+  --color-meridian-slate-100: #CBD5E1;
+  --color-meridian-slate-200: #B0BEC5;
+  --color-meridian-slate-300: #94A3B8;
+  --color-meridian-slate-400: #7B8FA3;
+  --color-meridian-slate-500: #64748B;
+  --color-meridian-slate-600: #526173;
+  --color-meridian-slate-700: #3F4E5C;
+
+  /* Crimson accent / CTA */
+  --color-meridian-crimson: #DC2626;
+  --color-meridian-crimson-50: #FEF2F2;
+  --color-meridian-crimson-100: #FEE2E2;
+  --color-meridian-crimson-200: #FECACA;
+  --color-meridian-crimson-300: #F87171;
+  --color-meridian-crimson-400: #EF4444;
+  --color-meridian-crimson-500: #DC2626;
+  --color-meridian-crimson-600: #B91C1C;
+  --color-meridian-crimson-700: #991B1B;
+
+  /* Steel blue secondary accent */
+  --color-meridian-steel: #3B82F6;
+  --color-meridian-steel-50: #EFF6FF;
+  --color-meridian-steel-100: #DBEAFE;
+  --color-meridian-steel-200: #BFDBFE;
+  --color-meridian-steel-300: #93C5FD;
+  --color-meridian-steel-400: #60A5FA;
+  --color-meridian-steel-500: #3B82F6;
+  --color-meridian-steel-600: #2563EB;
+  --color-meridian-steel-700: #1D4ED8;
+
+  /* Border colors */
+  --color-meridian-border: #E2E8F0;
+  --color-meridian-border-light: #F1F5F9;
+  --color-meridian-border-dark: #CBD5E1;
+
+  /* Shadows */
+  --shadow-meridian: 0 1px 3px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.06);
+  --shadow-meridian-md: 0 4px 6px -1px rgba(0, 0, 0, 0.07), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+  --shadow-meridian-lg: 0 10px 25px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -4px rgba(0, 0, 0, 0.04);
+  --shadow-meridian-glow: 0 0 20px rgba(59, 130, 246, 0.15);
+  --shadow-meridian-crimson: 0 4px 14px rgba(220, 38, 38, 0.25);
+  --shadow-meridian-card: 0 1px 3px rgba(27, 42, 74, 0.06), 0 1px 2px rgba(27, 42, 74, 0.04);
+  --shadow-meridian-card-hover: 0 4px 12px rgba(27, 42, 74, 0.1), 0 2px 4px rgba(27, 42, 74, 0.06);
+
+  /* Background images */
+  --background-image-meridian-gradient: linear-gradient(135deg, #1B2A4A 0%, #0E152A 50%, #111A32 100%);
+  --background-image-meridian-radial: radial-gradient(ellipse at top, #223354 0%, #1B2A4A 50%, #0B1022 100%);
+  --background-image-meridian-hero: radial-gradient(ellipse at 30% 20%, rgba(59, 130, 246, 0.08) 0%, transparent 50%), radial-gradient(ellipse at 70% 80%, rgba(220, 38, 38, 0.05) 0%, transparent 50%);
+  --background-image-meridian-wave: linear-gradient(135deg, #1B2A4A 0%, #223354 100%);
+
+  /* Animations */
+  --animate-wave-slow: wave 8s ease-in-out infinite;
+  --animate-wave-slower: wave 12s ease-in-out infinite reverse;
+  --animate-float: float 6s ease-in-out infinite;
+
+  @keyframes wave {
+    0%, 100% { transform: translateX(0) translateY(0); }
+    50% { transform: translateX(-20px) translateY(10px); }
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+}
 
 @layer base {
   body {

@@ -1,10 +1,10 @@
 from collections import defaultdict
 
 from app.models.stats_schemas import (
-    TradeInput,
+    PerformanceResponse,
     PerformanceStats,
     StrategyStats,
-    PerformanceResponse,
+    TradeInput,
 )
 
 
@@ -51,7 +51,11 @@ class StatsService:
         win_rate = len(wins) / len(trades) if trades else 0
         avg_win = total_wins / len(wins) if wins else 0
         avg_loss = total_losses / len(losses) if losses else 0
-        profit_factor = total_wins / total_losses if total_losses > 0 else 0
+        profit_factor = (
+            total_wins / total_losses
+            if total_losses > 0
+            else (float(9999.99) if total_wins > 0 else 0)
+        )
         expectancy = (win_rate * avg_win) - ((1 - win_rate) * avg_loss)
 
         return PerformanceStats(
@@ -91,7 +95,10 @@ class StatsService:
                     total_trades=len(strategy_trades),
                     win_rate=round(len(wins) / len(strategy_trades), 4),
                     profit_factor=round(
-                        total_wins / total_losses if total_losses > 0 else 0, 2
+                        total_wins / total_losses
+                        if total_losses > 0
+                        else (float(9999.99) if total_wins > 0 else 0),
+                        2,
                     ),
                     total_pnl=round(sum(pnls), 2),
                     avg_pnl=round(sum(pnls) / len(strategy_trades), 2),
@@ -100,9 +107,7 @@ class StatsService:
 
         return sorted(results, key=lambda x: x.win_rate, reverse=True)
 
-    def _calculate_by_ticker(
-        self, trades: list[TradeInput]
-    ) -> dict[str, PerformanceStats]:
+    def _calculate_by_ticker(self, trades: list[TradeInput]) -> dict[str, PerformanceStats]:
         by_ticker = defaultdict(list)
         for t in trades:
             by_ticker[t.ticker].append(t)

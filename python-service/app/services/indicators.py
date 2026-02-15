@@ -1,8 +1,8 @@
 import pandas as pd
 import pandas_ta as ta
 
-from app.services.market_data import market_data_service
 from app.models.indicator_schemas import IndicatorBar, IndicatorResponse
+from app.services.market_data import market_data_service
 
 
 class IndicatorService:

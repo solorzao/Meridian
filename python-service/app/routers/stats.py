@@ -1,7 +1,7 @@
 from fastapi import APIRouter
 
+from app.models.stats_schemas import PerformanceResponse, TradeInput
 from app.services import stats_service
-from app.models.stats_schemas import TradeInput, PerformanceResponse
 
 router = APIRouter(prefix="/stats", tags=["Statistics"])
 
