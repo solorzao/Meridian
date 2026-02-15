@@ -207,11 +207,11 @@ async def test_update_trade_updates_provided_fields(mock_get_trade, mock_db, moc
     mock_result.scalar_one_or_none.return_value = sample_trade
     mock_get_trade.return_value = MagicMock(spec=TradeResponse)
 
-    dto = UpdateTradeRequest(thesis="Updated thesis", notes="New notes")
+    dto = UpdateTradeRequest(entry_thesis="Updated thesis", notes="New notes")
 
     await update_trade(mock_db, sample_trade.id, user_id, dto)
 
-    assert sample_trade.thesis == "Updated thesis"
+    assert sample_trade.entry_thesis == "Updated thesis"
     assert sample_trade.notes == "New notes"
     mock_db.commit.assert_awaited()
 

@@ -16,7 +16,10 @@ export default function NewTradePage() {
     positionSize: '',
     stopLoss: '',
     takeProfit: '',
-    thesis: '',
+    entryThesis: '',
+    exitThesis: '',
+    marketSentiment: 0,
+    marketConditions: '',
     emotionalState: '',
     notes: '',
   });
@@ -36,6 +39,10 @@ export default function NewTradePage() {
           positionSize: parseFloat(formData.positionSize),
           stopLoss: formData.stopLoss ? parseFloat(formData.stopLoss) : undefined,
           takeProfit: formData.takeProfit ? parseFloat(formData.takeProfit) : undefined,
+          marketSentiment: formData.marketSentiment || undefined,
+          entryThesis: formData.entryThesis || undefined,
+          exitThesis: formData.exitThesis || undefined,
+          marketConditions: formData.marketConditions || undefined,
         }),
       });
 
@@ -168,13 +175,69 @@ export default function NewTradePage() {
           </div>
 
           <div>
-            <label className="meridian-label">Thesis</label>
+            <label className="meridian-label">Entry Thesis</label>
             <textarea
               rows={3}
               className="meridian-input"
-              placeholder="Why are you taking this trade?"
-              value={formData.thesis}
-              onChange={(e) => setFormData({ ...formData, thesis: e.target.value })}
+              placeholder="Why are you entering this trade?"
+              value={formData.entryThesis}
+              onChange={(e) => setFormData({ ...formData, entryThesis: e.target.value })}
+            />
+          </div>
+
+          <div>
+            <label className="meridian-label">Exit Plan</label>
+            <textarea
+              rows={3}
+              className="meridian-input"
+              placeholder="What's your exit plan?"
+              value={formData.exitThesis}
+              onChange={(e) => setFormData({ ...formData, exitThesis: e.target.value })}
+            />
+          </div>
+
+          <div>
+            <label className="meridian-label">Market Sentiment</label>
+            <div className="flex items-center gap-2 mt-1">
+              {[
+                { value: 1, label: 'Very Bearish' },
+                { value: 2, label: 'Bearish' },
+                { value: 3, label: 'Neutral' },
+                { value: 4, label: 'Bullish' },
+                { value: 5, label: 'Very Bullish' },
+              ].map((option) => (
+                <button
+                  key={option.value}
+                  type="button"
+                  title={option.label}
+                  className={`w-10 h-10 rounded-lg text-sm font-medium transition-colors ${
+                    formData.marketSentiment === option.value
+                      ? 'bg-meridian-crimson text-white'
+                      : 'bg-meridian-mist text-meridian-text-body hover:bg-meridian-steel/20'
+                  }`}
+                  onClick={() => setFormData({ ...formData, marketSentiment: option.value })}
+                >
+                  {option.value}
+                </button>
+              ))}
+              <span className="text-xs text-meridian-text-muted ml-2">
+                {formData.marketSentiment === 1 && 'Very Bearish'}
+                {formData.marketSentiment === 2 && 'Bearish'}
+                {formData.marketSentiment === 3 && 'Neutral'}
+                {formData.marketSentiment === 4 && 'Bullish'}
+                {formData.marketSentiment === 5 && 'Very Bullish'}
+              </span>
+            </div>
+          </div>
+
+          <div>
+            <label className="meridian-label">Market Conditions</label>
+            <textarea
+              rows={2}
+              className="meridian-input"
+              placeholder="Describe current market conditions"
+              value={formData.marketConditions}
+              onChange={(e) => setFormData({ ...formData, marketConditions: e.target.value })}
             />
           </div>
 

@@ -86,7 +86,9 @@ def sample_trade(user_id) -> MagicMock:
     trade.take_profit = Decimal("165.00")
     trade.pnl = None
     trade.pnl_percent = None
-    trade.thesis = "Bullish breakout pattern"
+    trade.entry_thesis = "Bullish breakout pattern"
+    trade.exit_thesis = None
+    trade.market_sentiment = None
     trade.emotional_state = "Confident"
     trade.market_conditions = "Trending up"
     trade.notes = "Entry after gap up"

@@ -72,7 +72,7 @@ async def seed():
                 "stop_loss": Decimal("180.0000"),
                 "take_profit": Decimal("195.0000"),
                 "status": "Open",
-                "thesis": "Strong earnings beat, AI momentum",
+                "entry_thesis": "Strong earnings beat, AI momentum",
             },
             {
                 "ticker": "NVDA",
@@ -85,7 +85,9 @@ async def seed():
                 "status": "Closed",
                 "pnl": Decimal("600.0000"),
                 "pnl_percent": Decimal("6.6667"),
-                "thesis": "Data center demand surge",
+                "entry_thesis": "Data center demand surge",
+                "exit_thesis": "Hit take-profit target, momentum fading",
+                "market_sentiment": 4,
             },
             {
                 "ticker": "TSLA",
@@ -98,7 +100,9 @@ async def seed():
                 "status": "Closed",
                 "pnl": Decimal("-300.0000"),
                 "pnl_percent": Decimal("-4.0000"),
-                "thesis": "Overvalued after rally",
+                "entry_thesis": "Overvalued after rally",
+                "exit_thesis": "Stopped out, thesis invalidated",
+                "market_sentiment": 2,
                 "emotional_state": "Frustrated",
                 "notes": "Should have set tighter stop loss",
             },
@@ -111,7 +115,7 @@ async def seed():
                 "stop_loss": Decimal("405.0000"),
                 "take_profit": Decimal("435.0000"),
                 "status": "Open",
-                "thesis": "Cloud growth acceleration",
+                "entry_thesis": "Cloud growth acceleration",
             },
         ]
 

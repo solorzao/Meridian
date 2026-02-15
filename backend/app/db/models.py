@@ -6,6 +6,7 @@ from sqlalchemy import (
     DateTime,
     ForeignKey,
     Index,
+    Integer,
     Numeric,
     String,
     Text,
@@ -64,7 +65,9 @@ class Trade(Base):
     pnl: Mapped[object | None] = mapped_column(Numeric(18, 4))
     pnl_percent: Mapped[object | None] = mapped_column(Numeric(18, 4))
     status: Mapped[str] = mapped_column(String(20), nullable=False, default="Open")
-    thesis: Mapped[str | None] = mapped_column(String(2000))
+    entry_thesis: Mapped[str | None] = mapped_column(String(2000))
+    exit_thesis: Mapped[str | None] = mapped_column(String(2000))
+    market_sentiment: Mapped[int | None] = mapped_column(Integer)
     emotional_state: Mapped[str | None] = mapped_column(String(100))
     market_conditions: Mapped[str | None] = mapped_column(String(500))
     notes: Mapped[str | None] = mapped_column(Text)

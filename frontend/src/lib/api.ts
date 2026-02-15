@@ -63,8 +63,11 @@ export interface TradeResponse {
   pnl?: number;
   pnlPercent?: number;
   status: 'Open' | 'Closed' | 'Cancelled';
-  thesis?: string;
+  entryThesis?: string;
+  exitThesis?: string;
+  marketSentiment?: number;
   emotionalState?: string;
+  marketConditions?: string;
   notes?: string;
   strategyTags: string[];
   createdAt: string;
@@ -79,8 +82,11 @@ export interface CreateTradeRequest {
   positionSize: number;
   stopLoss?: number;
   takeProfit?: number;
-  thesis?: string;
+  entryThesis?: string;
+  exitThesis?: string;
+  marketSentiment?: number;
   emotionalState?: string;
+  marketConditions?: string;
   notes?: string;
   strategyIds?: string[];
 }
@@ -91,7 +97,11 @@ export interface UpdateTradeRequest {
   stopLoss?: number;
   takeProfit?: number;
   status?: 'Open' | 'Closed' | 'Cancelled';
-  thesis?: string;
+  entryThesis?: string;
+  exitThesis?: string;
+  marketSentiment?: number;
+  emotionalState?: string;
+  marketConditions?: string;
   notes?: string;
 }
 
