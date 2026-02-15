@@ -13,7 +13,7 @@ test.describe('Trade CRUD', () => {
 
     // Verify filter tabs
     await expect(page.getByRole('button', { name: 'All Trades' })).toBeVisible();
-    await expect(page.getByRole('button', { name: 'Open' })).toBeVisible();
+    await expect(page.getByRole('button', { name: 'Open', exact: true })).toBeVisible();
     await expect(page.getByRole('button', { name: 'Closed' })).toBeVisible();
 
     // Verify table headers are rendered

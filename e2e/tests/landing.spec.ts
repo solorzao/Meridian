@@ -20,9 +20,9 @@ test.describe('Landing Page', () => {
     ).toBeVisible();
 
     // Verify core feature cards are rendered
-    await expect(page.getByText('AI Agents')).toBeVisible();
-    await expect(page.getByText('Trade Journal')).toBeVisible();
-    await expect(page.getByText('Analytics')).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'AI Agents' })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Trade Journal' })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Analytics' })).toBeVisible();
 
     // Verify the features section heading
     await expect(page.getByText('Everything you need to trade better')).toBeVisible();

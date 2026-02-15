@@ -39,7 +39,7 @@ test.describe('Agents Chat', () => {
 
     // The chat interface should appear
     // Verify the chat header shows the selected agent name
-    await expect(page.getByText('Screener Agent')).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Screener Agent' })).toBeVisible();
     await expect(page.getByText('Online')).toBeVisible();
     await expect(page.getByText('Ready')).toBeVisible();
 
@@ -52,9 +52,8 @@ test.describe('Agents Chat', () => {
     // Verify the message input and send button are present
     await expect(page.getByPlaceholder('Ask your agent...')).toBeVisible();
 
-    // Verify the back button exists to return to agent selection
-    const backButton = page.locator('button').filter({ has: page.locator('svg') }).first();
-    await backButton.click();
+    // Click the back arrow button in the chat header to return to agent selection
+    await page.locator('button:has(svg.lucide-arrow-left)').click();
 
     // Should return to agent selection view with all cards visible
     await expect(page.getByText('Analyst Agent')).toBeVisible();
