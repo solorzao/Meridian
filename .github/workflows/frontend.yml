@@ -2,10 +2,10 @@ name: Frontend CI/CD
 
 on:
   push:
-    branches: [main]
+    branches: [master]
     paths: ['frontend/**']
   pull_request:
-    branches: [main]
+    branches: [master]
     paths: ['frontend/**']
 
 jobs:
@@ -37,7 +37,7 @@ jobs:
 
   deploy:
     needs: build
-    if: github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/master'
     runs-on: ubuntu-latest
     environment: production
 

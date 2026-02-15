@@ -2,10 +2,10 @@ name: Infrastructure
 
 on:
   push:
-    branches: [main]
+    branches: [master]
     paths: ['infrastructure/**']
   pull_request:
-    branches: [main]
+    branches: [master]
     paths: ['infrastructure/**']
 
 jobs:
@@ -24,7 +24,7 @@ jobs:
 
   deploy:
     needs: validate
-    if: github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/master'
     runs-on: ubuntu-latest
     environment: production
 
