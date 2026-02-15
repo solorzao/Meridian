@@ -26,7 +26,6 @@ docker compose down            # Stop all services
 ```bash
 cd backend && uv venv && uv pip install -e ".[dev]"  # Setup
 cd backend && uvicorn app.main:app --reload           # Dev server (port 8000)
-cd backend && pytest                                  # Run tests
 cd backend && ruff check .                            # Lint
 cd backend && ruff format .                           # Format
 cd backend && alembic upgrade head                    # Run DB migrations
@@ -45,6 +44,40 @@ cd frontend && npm run lint    # ESLint
 ```bash
 python scripts/seed.py         # Create test user + sample trades
 ```
+
+## Testing
+
+### Backend (pytest)
+```bash
+cd backend && uv run pytest tests/ -v                              # All tests
+cd backend && uv run pytest tests/test_trade_routes.py -v          # Single file
+cd backend && uv run pytest tests/test_trade_routes.py::test_get_trade_200 -v  # Single test
+cd backend && uv run pytest tests/ -v --cov=app --cov-report=term-missing      # With coverage
+```
+
+Config in `backend/pyproject.toml`: `asyncio_mode = "auto"`, `testpaths = ["tests"]`
+
+Test fixtures in `backend/tests/conftest.py` provide `mock_db` (AsyncMock of SQLAlchemy AsyncSession), `sample_trade`, `sample_strategy`, `sample_user`, `sample_conversation`, and `user_id`. All async DB operations are mocked — no real database needed.
+
+### Frontend (Vitest)
+```bash
+cd frontend && npm run test -- --run                                  # All tests (single run)
+cd frontend && npm run test -- src/lib/__tests__/api.test.ts          # Single file
+cd frontend && npm run test -- --run -t "renders the hero tagline"    # By test name
+```
+
+Config in `frontend/vitest.config.ts`: jsdom environment, `@testing-library/react` + `@testing-library/jest-dom` for DOM assertions, path alias `@` → `./src/`.
+
+Tests are collocated: `__tests__/page.test.tsx` next to each `page.tsx`.
+
+### E2E (Playwright)
+```bash
+cd e2e && npm test                 # All tests headless (chromium)
+cd e2e && npm run test:headed      # With visible browser
+cd e2e && npm run test:ui          # Interactive Playwright UI
+```
+
+Runs against `http://localhost:3000` — requires frontend to be running. Config in `e2e/playwright.config.ts`.
 
 ## Architecture
 
@@ -105,11 +138,13 @@ Agent tools defined in `app/agents/tools.py`:
 - Rate limiting: global 100/min, AgentChat 20/min, Screener 5/min (via slowapi)
 - Global exception handler maps Python exceptions to HTTP status codes
 - Hardcoded dev user ID: `00000000-0000-0000-0000-000000000001` (in `app/auth.py`)
+- Ruff: line-length 100, rules `E, F, I, N, W`
 
-### Frontend Structure
+### Frontend Patterns
 - Next.js App Router with file-based routing under `frontend/src/app/`
 - Dashboard pages: overview, journal, journal/new, analytics, agents, settings
-- API client in `frontend/src/lib/api.ts` (points to port 8000)
+- API client in `frontend/src/lib/api.ts` — generic `fetchApi<T>()` with typed methods, CamelCase responses
+- Path alias: `@/*` → `./src/*` (in tsconfig.json)
 - Auth: Azure AD B2C via `@azure/msal-browser` and `@azure/msal-react`
 - Charting: recharts
 
