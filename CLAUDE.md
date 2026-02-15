@@ -2,6 +2,11 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## Workflow
+
+- **Never push directly to main/master.** Always create a feature branch and open a PR.
+- Branch naming: `<type>/<short-description>` (e.g., `fix/strict-mode-e2e`, `feat/dark-mode`)
+
 ## Project Overview
 
 Meridian is an AI-powered trading journal & research assistant. Monorepo with two services:
