@@ -7,25 +7,25 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 Meridian is an AI-powered trading journal & research assistant. Monorepo with two services:
 
 - **Frontend** (`frontend/`) — Next.js 15, React 19, TypeScript, TailwindCSS
-- **Backend** (`python-service/`) — Python 3.12, FastAPI, SQLAlchemy, LangGraph, PostgreSQL
+- **Backend** (`backend/`) — Python 3.12, FastAPI, SQLAlchemy, LangGraph, PostgreSQL
 
 ## Common Commands
 
 ### Full Stack (Docker)
 ```bash
-docker compose up -d          # Start all services (frontend + python-service + postgres)
+docker compose up -d          # Start all services (frontend + backend + postgres)
 docker compose down            # Stop all services
 ```
 
 ### Backend (Python/FastAPI)
 ```bash
-cd python-service && uv venv && uv pip install -e ".[dev]"  # Setup
-cd python-service && uvicorn app.main:app --reload           # Dev server (port 8000)
-cd python-service && pytest                                  # Run tests
-cd python-service && ruff check .                            # Lint
-cd python-service && ruff format .                           # Format
-cd python-service && alembic upgrade head                    # Run DB migrations
-cd python-service && alembic revision --autogenerate -m "description"  # Create migration
+cd backend && uv venv && uv pip install -e ".[dev]"  # Setup
+cd backend && uvicorn app.main:app --reload           # Dev server (port 8000)
+cd backend && pytest                                  # Run tests
+cd backend && ruff check .                            # Lint
+cd backend && ruff format .                           # Format
+cd backend && alembic upgrade head                    # Run DB migrations
+cd backend && alembic revision --autogenerate -m "description"  # Create migration
 ```
 
 ### Frontend (Next.js)
@@ -45,7 +45,7 @@ python scripts/seed.py         # Create test user + sample trades
 
 ### Backend Structure
 ```
-python-service/
+backend/
 ├── app/
 │   ├── agents/          → LangGraph AI agents (tools, prompts, orchestrator)
 │   ├── db/              → SQLAlchemy models + database setup
@@ -112,7 +112,7 @@ Agent tools defined in `app/agents/tools.py`:
 In `app/jobs/`: daily_summary, profile_refresh, screener_job, embedding_job (placeholder)
 
 ## Infrastructure
-- **Hosting:** Azure Container Apps (2 containers: frontend + python-service)
+- **Hosting:** Azure Container Apps (2 containers: frontend + backend)
 - **Database:** Azure PostgreSQL Flexible Server
 - **IaC:** Bicep templates in `infrastructure/` (main.bicep + modules)
 - **CI/CD:** GitHub Actions in `.github/workflows/` — path-filtered triggers

@@ -9,7 +9,7 @@ from sqlalchemy import select
 
 # Adjust path so we can import app modules
 import sys
-sys.path.insert(0, "python-service")
+sys.path.insert(0, "backend")
 
 from app.db.database import async_session, engine  # noqa: E402
 from app.db.models import Base, User, Trade, Strategy, TradeStrategyTag  # noqa: E402

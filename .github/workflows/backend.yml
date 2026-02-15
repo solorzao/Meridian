@@ -1,19 +1,19 @@
-name: Python Service CI/CD
+name: Backend CI/CD
 
 on:
   push:
     branches: [main]
-    paths: ['python-service/**']
+    paths: ['backend/**']
   pull_request:
     branches: [main]
-    paths: ['python-service/**']
+    paths: ['backend/**']
 
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: python-service
+        working-directory: backend
 
     services:
       postgres:
@@ -76,7 +76,7 @@ jobs:
         env:
           ACR_SERVER: ${{ secrets.ACR_LOGIN_SERVER }}
         run: |
-          docker build -t "$ACR_SERVER/meridian-python:$GIT_SHA" python-service/
+          docker build -t "$ACR_SERVER/meridian-python:$GIT_SHA" backend/
           docker push "$ACR_SERVER/meridian-python:$GIT_SHA"
 
       - name: Deploy to Container App

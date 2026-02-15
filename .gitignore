@@ -19,20 +19,15 @@ frontend/.next/
 frontend/out/
 frontend/.turbo/
 
-# Backend (.NET)
-backend/**/bin/
-backend/**/obj/
-backend/**/*.user
-backend/**/*.suo
-backend/.vs/
+# Backend (Python)
+backend/.venv/
+backend/venv/
+backend/.pytest_cache/
+backend/.ruff_cache/
 
 # Python
 __pycache__/
 *.pyc
-python-service/.venv/
-python-service/venv/
-python-service/.pytest_cache/
-python-service/.ruff_cache/
 
 # Infrastructure
 infrastructure/.terraform/

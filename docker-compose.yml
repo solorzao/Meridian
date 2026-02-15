@@ -8,10 +8,10 @@ services:
     environment:
       - NEXT_PUBLIC_API_URL=http://localhost:8000
     depends_on:
-      - python-service
+      - backend
 
-  python-service:
-    build: ./python-service
+  backend:
+    build: ./backend
     ports:
       - "8000:8000"
     environment:
