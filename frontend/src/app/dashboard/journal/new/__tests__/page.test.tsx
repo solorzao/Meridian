@@ -45,7 +45,10 @@ describe('NewTradePage', () => {
     expect(screen.getByText('Position Size')).toBeInTheDocument();
     expect(screen.getByText('Stop Loss')).toBeInTheDocument();
     expect(screen.getByText('Take Profit')).toBeInTheDocument();
-    expect(screen.getByText('Thesis')).toBeInTheDocument();
+    expect(screen.getByText('Entry Thesis')).toBeInTheDocument();
+    expect(screen.getByText('Exit Plan')).toBeInTheDocument();
+    expect(screen.getByText('Market Sentiment')).toBeInTheDocument();
+    expect(screen.getByText('Market Conditions')).toBeInTheDocument();
     expect(screen.getByText('Emotional State')).toBeInTheDocument();
     expect(screen.getByText('Notes')).toBeInTheDocument();
 

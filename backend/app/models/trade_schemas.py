@@ -13,7 +13,9 @@ class CreateTradeRequest(CamelModel):
     position_size: Decimal
     stop_loss: Decimal | None = None
     take_profit: Decimal | None = None
-    thesis: str | None = None
+    entry_thesis: str | None = None
+    exit_thesis: str | None = None
+    market_sentiment: int | None = None
     emotional_state: str | None = None
     market_conditions: str | None = None
     notes: str | None = None
@@ -26,7 +28,9 @@ class UpdateTradeRequest(CamelModel):
     stop_loss: Decimal | None = None
     take_profit: Decimal | None = None
     status: Literal["Open", "Closed", "Cancelled"] | None = None
-    thesis: str | None = None
+    entry_thesis: str | None = None
+    exit_thesis: str | None = None
+    market_sentiment: int | None = None
     emotional_state: str | None = None
     market_conditions: str | None = None
     notes: str | None = None
@@ -47,7 +51,9 @@ class TradeResponse(CamelModel):
     pnl: Decimal | None = None
     pnl_percent: Decimal | None = None
     status: str
-    thesis: str | None = None
+    entry_thesis: str | None = None
+    exit_thesis: str | None = None
+    market_sentiment: int | None = None
     emotional_state: str | None = None
     market_conditions: str | None = None
     notes: str | None = None

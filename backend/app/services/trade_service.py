@@ -30,7 +30,9 @@ def _map_trade_to_response(trade: Trade) -> TradeResponse:
         pnl=trade.pnl,
         pnl_percent=trade.pnl_percent,
         status=trade.status,
-        thesis=trade.thesis,
+        entry_thesis=trade.entry_thesis,
+        exit_thesis=trade.exit_thesis,
+        market_sentiment=trade.market_sentiment,
         emotional_state=trade.emotional_state,
         market_conditions=trade.market_conditions,
         notes=trade.notes,
@@ -85,7 +87,9 @@ async def create_trade(
         position_size=dto.position_size,
         stop_loss=dto.stop_loss,
         take_profit=dto.take_profit,
-        thesis=dto.thesis,
+        entry_thesis=dto.entry_thesis,
+        exit_thesis=dto.exit_thesis,
+        market_sentiment=dto.market_sentiment,
         emotional_state=dto.emotional_state,
         market_conditions=dto.market_conditions,
         notes=dto.notes,
@@ -126,8 +130,12 @@ async def update_trade(
         trade.take_profit = dto.take_profit
     if dto.status is not None:
         trade.status = dto.status
-    if dto.thesis is not None:
-        trade.thesis = dto.thesis
+    if dto.entry_thesis is not None:
+        trade.entry_thesis = dto.entry_thesis
+    if dto.exit_thesis is not None:
+        trade.exit_thesis = dto.exit_thesis
+    if dto.market_sentiment is not None:
+        trade.market_sentiment = dto.market_sentiment
     if dto.emotional_state is not None:
         trade.emotional_state = dto.emotional_state
     if dto.market_conditions is not None:

@@ -51,7 +51,7 @@ test.describe('Trade CRUD', () => {
     await page.getByPlaceholder('100').fill('50');
 
     // Fill optional fields
-    await page.getByPlaceholder('Why are you taking this trade?').fill('Bullish breakout above resistance');
+    await page.getByPlaceholder('Why are you entering this trade?').fill('Bullish breakout above resistance');
     await page.getByPlaceholder('e.g., Confident, Anxious, FOMO').fill('Confident');
     await page.getByPlaceholder('Additional notes...').fill('Testing trade entry from e2e');
 
@@ -68,7 +68,7 @@ test.describe('Trade CRUD', () => {
     await page.getByPlaceholder('AAPL').fill('TSLA');
     await page.getByPlaceholder('0.00').fill('250.00');
     await page.getByPlaceholder('100').fill('10');
-    await page.getByPlaceholder('Why are you taking this trade?').fill('Momentum play');
+    await page.getByPlaceholder('Why are you entering this trade?').fill('Momentum play');
 
     // Submit the form
     await page.getByRole('button', { name: 'Create Trade' }).click();

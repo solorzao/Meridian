@@ -6,6 +6,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 - **Never push directly to main/master.** Always create a feature branch and open a PR.
 - Branch naming: `<type>/<short-description>` (e.g., `fix/strict-mode-e2e`, `feat/dark-mode`)
+- **Never ignore problems.** When you encounter a failing test, lint error, build issue, or any other problem — even if it's pre-existing and unrelated to the current task — always surface it. Either fix it now or explicitly ask the user whether to fix it now or create a task/issue to track it for later. Never dismiss issues as "pre-existing" and move on silently.
 
 ## Project Overview
 

@@ -1,9 +1,13 @@
-from unittest.mock import patch
+import sys
+from unittest.mock import MagicMock, patch
 
+import pandas as pd
 import pytest
 
 from app.models.schemas import OHLCVBar, OHLCVResponse
 from app.services.indicators import IndicatorService
+
+_pandas_ta_mocked = isinstance(sys.modules.get("pandas_ta"), MagicMock)
 
 
 @pytest.fixture
@@ -50,7 +54,19 @@ def test_calculate_default_indicators(mock_mds, service, mock_ohlcv):
 def test_calculate_specific_indicators(mock_mds, service, mock_ohlcv):
     mock_mds.get_ohlcv.return_value = mock_ohlcv
 
-    result = service.calculate("AAPL", indicators=["sma_20"])
+    if _pandas_ta_mocked:
+        # pandas_ta doesn't support Python 3.14, so provide a real SMA
+        # implementation to still test the service's processing logic.
+        # The Series must use the same DatetimeIndex as the DataFrame
+        # (set_index("date") in the service) so pandas aligns correctly.
+        dates = pd.to_datetime([bar.date for bar in mock_ohlcv.bars])
+        closes = pd.Series([bar.close for bar in mock_ohlcv.bars], index=dates)
+        sma_series = closes.rolling(window=20).mean()
+        with patch("app.services.indicators.ta") as mock_ta:
+            mock_ta.sma.return_value = sma_series
+            result = service.calculate("AAPL", indicators=["sma_20"])
+    else:
+        result = service.calculate("AAPL", indicators=["sma_20"])
 
     assert "sma_20" in result.indicators_calculated
     # SMA_20 should have values for bars after the 20th
