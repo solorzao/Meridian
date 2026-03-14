@@ -182,85 +182,85 @@ export default function Home() {
       </div>
 
       {/* ========== LIGHT FEATURES SECTION ========== */}
-      <section id="features" className="relative z-10 px-6 pt-12 pb-20 max-w-6xl mx-auto bg-meridian-surface">
-        <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-meridian-crimson/[0.06] border border-meridian-crimson/10 mb-5">
-            <Compass className="w-3.5 h-3.5 text-meridian-crimson" />
-            <p className="text-xs font-semibold text-meridian-crimson uppercase tracking-wider">Core Features</p>
+      <div className="relative bg-meridian-surface" style={{ boxShadow: '0 -2px 0 0 #F8FAFC' }}>
+        <section id="features" className="relative z-10 px-6 pt-12 pb-20 max-w-6xl mx-auto">
+          <div className="text-center mb-16">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-meridian-crimson/[0.06] border border-meridian-crimson/10 mb-5">
+              <Compass className="w-3.5 h-3.5 text-meridian-crimson" />
+              <p className="text-xs font-semibold text-meridian-crimson uppercase tracking-wider">Core Features</p>
+            </div>
+            <h2 className="text-3xl sm:text-4xl font-bold text-meridian-text-heading mb-4">Everything you need to trade better</h2>
+            <p className="text-meridian-text-muted text-lg max-w-xl mx-auto">
+              Three pillars of improvement, powered by AI and built for serious traders.
+            </p>
           </div>
-          <h2 className="text-3xl sm:text-4xl font-bold text-meridian-text-heading mb-4">Everything you need to trade better</h2>
-          <p className="text-meridian-text-muted text-lg max-w-xl mx-auto">
-            Three pillars of improvement, powered by AI and built for serious traders.
-          </p>
-        </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {features.map((feature) => {
-            const Icon = feature.icon;
-            const DecorIcon = feature.decorIcon;
-            return (
-              <div
-                key={feature.title}
-                className={`relative overflow-hidden rounded-2xl border ${feature.accentBorder} bg-gradient-to-br ${feature.gradient} p-8 group hover:shadow-meridian-lg hover:border-meridian-border-dark transition-all duration-300 ease-out hover:-translate-y-1`}
-              >
-                {/* Decorative background icon */}
-                <DecorIcon className={`absolute -right-4 -top-4 w-32 h-32 ${feature.decorColor} rotate-12 transition-transform duration-500 group-hover:rotate-[20deg] group-hover:scale-110`} strokeWidth={1.5} />
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {features.map((feature) => {
+              const Icon = feature.icon;
+              const DecorIcon = feature.decorIcon;
+              return (
+                <div
+                  key={feature.title}
+                  className={`relative overflow-hidden rounded-2xl border ${feature.accentBorder} bg-gradient-to-br ${feature.gradient} p-8 group hover:shadow-meridian-lg hover:border-meridian-border-dark transition-all duration-300 ease-out hover:-translate-y-1`}
+                >
+                  {/* Decorative background icon */}
+                  <DecorIcon className={`absolute -right-4 -top-4 w-32 h-32 ${feature.decorColor} rotate-12 transition-transform duration-500 group-hover:rotate-[20deg] group-hover:scale-110`} strokeWidth={1.5} />
 
-                {/* Icon */}
-                <div className={`relative w-14 h-14 rounded-2xl flex items-center justify-center mb-6 ${feature.iconBg} ${feature.iconShadow}`}>
-                  <Icon className="w-7 h-7 text-white" strokeWidth={2} />
+                  {/* Icon */}
+                  <div className={`relative w-14 h-14 rounded-2xl flex items-center justify-center mb-6 ${feature.iconBg} ${feature.iconShadow}`}>
+                    <Icon className="w-7 h-7 text-white" strokeWidth={2} />
+                  </div>
+
+                  <h3 className="text-xl font-semibold text-meridian-text-heading mb-3">{feature.title}</h3>
+                  <p className="text-meridian-text-muted leading-relaxed text-sm">
+                    {feature.description}
+                  </p>
+
+                  {/* Bottom accent line */}
+                  <div className={`absolute bottom-0 left-8 right-8 h-[2px] rounded-full ${feature.iconBg} opacity-0 group-hover:opacity-40 transition-opacity duration-300`} />
                 </div>
+              );
+            })}
+          </div>
+        </section>
 
-                <h3 className="text-xl font-semibold text-meridian-text-heading mb-3">{feature.title}</h3>
-                <p className="text-meridian-text-muted leading-relaxed text-sm">
-                  {feature.description}
-                </p>
-
-                {/* Bottom accent line */}
-                <div className={`absolute bottom-0 left-8 right-8 h-[2px] rounded-full ${feature.iconBg} opacity-0 group-hover:opacity-40 transition-opacity duration-300`} />
-              </div>
-            );
-          })}
-        </div>
-      </section>
-
-      {/* Decorative wave separator */}
-      <div className="bg-meridian-surface">
+        {/* Decorative divider */}
         <div className="max-w-4xl mx-auto px-6">
           <div className="h-px bg-gradient-to-r from-transparent via-meridian-border-dark to-transparent" />
         </div>
-      </div>
 
-      {/* Secondary highlights */}
-      <section className="relative z-10 px-6 py-20 max-w-6xl mx-auto bg-meridian-surface">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {highlights.map((item) => {
-            const Icon = item.icon;
-            return (
-              <div key={item.title} className="relative bg-white rounded-xl border border-meridian-border p-6 hover:shadow-meridian-card-hover hover:border-meridian-border-dark transition-all duration-200 group">
-                {/* Accent bar on left */}
-                <div className={`absolute top-4 left-0 w-[3px] h-10 rounded-r-full ${item.accentColor} opacity-80 group-hover:h-14 group-hover:opacity-100 transition-all duration-300`} />
+        {/* Secondary highlights */}
+        <section className="relative z-10 px-6 py-20 max-w-6xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {highlights.map((item) => {
+              const Icon = item.icon;
+              return (
+                <div key={item.title} className="relative bg-white rounded-xl border border-meridian-border p-6 hover:shadow-meridian-card-hover hover:border-meridian-border-dark transition-all duration-200 group">
+                  {/* Accent bar on left */}
+                  <div className={`absolute top-4 left-0 w-[3px] h-10 rounded-r-full ${item.accentColor} opacity-80 group-hover:h-14 group-hover:opacity-100 transition-all duration-300`} />
 
-                <div className="flex items-start gap-4 pl-2">
-                  <div className={`flex-shrink-0 w-11 h-11 rounded-xl ${item.iconBg} flex items-center justify-center`}>
-                    <Icon className={`w-5 h-5 ${item.color}`} strokeWidth={2} />
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-meridian-text-heading mb-1.5">{item.title}</h3>
-                    <p className="text-meridian-text-muted text-sm leading-relaxed">
-                      {item.description}
-                    </p>
+                  <div className="flex items-start gap-4 pl-2">
+                    <div className={`flex-shrink-0 w-11 h-11 rounded-xl ${item.iconBg} flex items-center justify-center`}>
+                      <Icon className={`w-5 h-5 ${item.color}`} strokeWidth={2} />
+                    </div>
+                    <div>
+                      <h3 className="font-semibold text-meridian-text-heading mb-1.5">{item.title}</h3>
+                      <p className="text-meridian-text-muted text-sm leading-relaxed">
+                        {item.description}
+                      </p>
+                    </div>
                   </div>
                 </div>
-              </div>
-            );
-          })}
-        </div>
-      </section>
+              );
+            })}
+          </div>
+        </section>
+      </div>
 
       {/* ========== CTA SECTION (Navy) ========== */}
-      <div className="bg-meridian-surface">
-        <WaveDivider flip={true} color="#17304e" />
+      <div className="bg-[#17304e]">
+        <WaveDivider flip={true} color="#F8FAFC" />
       </div>
       <section className="relative z-10 bg-[#17304e] px-6 py-24 overflow-hidden">
         {/* Decorative compass elements */}
@@ -285,18 +285,17 @@ export default function Home() {
           </div>
         </div>
       </section>
-      <WaveDividerNavyToWhite />
 
-      {/* Footer (light) */}
-      <footer className="relative z-10 bg-meridian-surface border-t border-meridian-border px-6 py-6">
+      {/* Footer (navy, continuous with CTA) */}
+      <footer className="relative z-10 bg-[#17304e] border-t border-white/10 px-6 py-6">
         <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-2.5">
-            <div className="w-6 h-6 rounded-md bg-gradient-to-br from-meridian-navy to-meridian-navy-700 flex items-center justify-center">
+            <div className="w-6 h-6 rounded-md bg-white/10 flex items-center justify-center">
               <Compass className="w-3.5 h-3.5 text-white/80" strokeWidth={2} />
             </div>
-            <span className="text-meridian-text-heading text-sm font-semibold tracking-tight">Meridian</span>
+            <span className="text-white text-sm font-semibold tracking-tight">Meridian</span>
           </div>
-          <p className="text-meridian-text-light text-xs">
+          <p className="text-white/40 text-xs">
             Built for traders who want to improve. Not financial advice.
           </p>
         </div>

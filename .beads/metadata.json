@@ -1,0 +1,7 @@
+{
+  "database": "dolt",
+  "backend": "dolt",
+  "dolt_mode": "server",
+  "dolt_database": "Meridian",
+  "project_id": "88475530-2c71-4a6b-ba89-9f86d354ccf1"
+}
