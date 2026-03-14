@@ -7,6 +7,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - **Never push directly to main/master.** Always create a feature branch and open a PR.
 - Branch naming: `<type>/<short-description>` (e.g., `fix/strict-mode-e2e`, `feat/dark-mode`)
 - **Never ignore problems.** When you encounter a failing test, lint error, build issue, or any other problem — even if it's pre-existing and unrelated to the current task — always surface it. Either fix it now or explicitly ask the user whether to fix it now or create a task/issue to track it for later. Never dismiss issues as "pre-existing" and move on silently.
+- **Issue tracking:** Uses Beads (`bd` CLI) — issues live in-repo under `.beads/`. Use `bd list`, `bd create "title"`, `bd show <id>`, `bd update <id> --status done`.
 
 ## Project Overview
 
@@ -160,9 +161,8 @@ In `app/jobs/`: daily_summary, profile_refresh, screener_job, embedding_job (pla
 - **Container builds:** Dockerfiles for both services
 
 ## Key Configuration
-- Backend config via environment variables (see `app/config.py`)
+- Backend config via environment variables (see `app/config.py` and `backend/.env.example`)
 - `DATABASE_URL` — PostgreSQL connection string
 - `AZURE_OPENAI_*` — Azure OpenAI for AI agents
 - `STRIPE_*` — Stripe for billing
 - Frontend API URL: `NEXT_PUBLIC_API_URL` environment variable (default: http://localhost:8000)
-- Financial decimal precision: Numeric(18,4) in SQLAlchemy models

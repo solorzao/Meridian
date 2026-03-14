@@ -1,4 +1,5 @@
 import asyncio
+import os
 from logging.config import fileConfig
 
 from sqlalchemy import pool
@@ -10,6 +11,10 @@ from app.db.models import Base
 config = context.config
 if config.config_file_name is not None:
     fileConfig(config.config_file_name)
+
+# Use DATABASE_URL env var if set (e.g. in Docker), else fall back to alembic.ini
+if os.environ.get("DATABASE_URL"):
+    config.set_main_option("sqlalchemy.url", os.environ["DATABASE_URL"])
 
 target_metadata = Base.metadata
 
